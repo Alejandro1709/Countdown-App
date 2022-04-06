@@ -1,0 +1,50 @@
+[
+    {
+        "id": "aa2j3bjd",
+        "title": "Viaje a San Francisco 2022",
+        "slug": "viaje-a-san-francisco-2022",
+        "date": "Fri, 16 Sep 2022",
+        "icon": "🔥",
+        "scheme": [
+            {
+                "id": "bgkre",
+                "name": "green",
+                "light": "#47ED6C",
+                "dark": "#33D356"
+            }
+        ],
+        "expired": false
+    },
+    {
+        "id": "kkoe3442",
+        "title": "Cumpleanios 23",
+        "slug": "cumpleanios23",
+        "date": "Sat, 17 Sep 2022",
+        "icon": "🥳",
+        "scheme": [
+            {
+                "id": "ppje4rf",
+                "name": "blue",
+                "light": "#47C5ED",
+                "dark": "#38B2D9"
+            }
+        ],
+        "expired": false
+    },
+    {
+        "id": "cjh5iije",
+        "title": "The Icy Tour 2022",
+        "slug": "the-icy-tour-2022",
+        "date": "Sun, 18 Sep 2022",
+        "icon": "🤯",
+        "scheme": [
+            {
+                "id": "cd85ike",
+                "name": "purple",
+                "light": "#B170E3",
+                "dark": "#903ED1"
+            }
+        ],
+        "expired": false
+    }
+]
