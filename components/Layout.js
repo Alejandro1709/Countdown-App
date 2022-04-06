@@ -18,3 +18,10 @@ function Layout({ children, title, description, keywords }) {
 }
 
 export default Layout;
+
+Layout.defaultProps = {
+  title: 'Countdown App',
+  description:
+    'Create your own custom countdowns for your most important events',
+  keywords: 'countdown, countdowns, count, events',
+};
