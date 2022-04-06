@@ -10,8 +10,8 @@ function Navbar() {
       </Link>
       <nav role='navigation'>
         <ul className={styles.navItems}>
-          <Link href='/countdowns'>
-            <a className={styles.navLink}>My Countdowns</a>
+          <Link href='/new-countdown'>
+            <a className={styles.navLink}>Create Countdown</a>
           </Link>
           <Link href='/account'>
             <a className={styles.navLink}>Account</a>
