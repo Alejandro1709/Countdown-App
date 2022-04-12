@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 import Navbar from './Navbar';
+import styles from '../styles/Layout.module.css';
 
 function Layout({ children, title, description, keywords }) {
   return (
@@ -12,7 +13,7 @@ function Layout({ children, title, description, keywords }) {
       </Head>
 
       <Navbar />
-      <main>{children}</main>
+      <main className={styles.container}>{children}</main>
     </div>
   );
 }

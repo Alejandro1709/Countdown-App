@@ -1,0 +1,34 @@
+.ListCard {
+  color: white;
+  cursor: pointer;
+}
+
+.LeftSide {
+  display: flex;
+  flex-direction: row;
+}
+
+.Emoji {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+
+.Emoji span {
+  font-size: 2rem;
+}
+
+.CardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 1rem;
+  padding: 1rem 0;
+}
+
+.CardInfo h3,
+.CardInfo p {
+  display: inline-block;
+  margin: 0;
+}
