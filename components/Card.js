@@ -1,8 +1,9 @@
 import React from 'react';
+import { SortableElement } from 'react-sortable-hoc';
 import Link from 'next/link';
 import styles from '../styles/Card.module.css';
 
-function Card({ countdown }) {
+const Card = SortableElement(({ countdown }) => {
   return (
     <div
       style={{ backgroundColor: countdown.color }}
@@ -25,7 +26,7 @@ function Card({ countdown }) {
       </div>
     </div>
   );
-}
+});
 
 export default Card;
 
