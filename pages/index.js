@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { arrayMove } from 'react-sortable-hoc';
+import { supabase } from '../utils/supabaseClient';
 import CreateCard from '../components/CreateCard';
 import Layout from '../components/Layout';
 import List from '../components/List';
@@ -7,6 +8,7 @@ import Modal from '../components/Modal';
 import { slugifyText } from '../utils/slugify';
 import styles from '../styles/NewButton.module.css';
 import { getDaysDifference } from '../utils/dates';
+import Login from './login';
 
 export default function Home() {
   const [countdowns, setCountdowns] = useState([
@@ -53,6 +55,15 @@ export default function Home() {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    setSession(supabase.auth.session());
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setCountdowns(arrayMove(countdowns, oldIndex, newIndex));
@@ -69,18 +80,27 @@ export default function Home() {
       description='Create your own custom countdowns for your most important events'
       keywords='countdown, countdowns, count, events'
     >
-      <List countdowns={countdowns} axis='y' onSortEnd={onSortEnd} />
-      {isModalOpen && (
-        <Modal>
-          <CreateCard
-            onCancel={() => setIsModalOpen(false)}
-            handleCreate={onCreate}
-          />
-        </Modal>
+      {!session ? (
+        <Login />
+      ) : (
+        <Fragment>
+          <List countdowns={countdowns} axis='y' onSortEnd={onSortEnd} />
+          {isModalOpen && (
+            <Modal>
+              <CreateCard
+                onCancel={() => setIsModalOpen(false)}
+                handleCreate={onCreate}
+              />
+            </Modal>
+          )}
+          <div
+            onClick={() => setIsModalOpen(true)}
+            className={styles.Container}
+          >
+            <span>Add new Countdown</span>
+          </div>
+        </Fragment>
       )}
-      <div onClick={() => setIsModalOpen(true)} className={styles.Container}>
-        <span>Add new Countdown</span>
-      </div>
     </Layout>
   );
 }

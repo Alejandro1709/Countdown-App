@@ -1,0 +1,32 @@
+.Login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.Login h1 {
+  margin-bottom: 1rem;
+}
+
+.Field {
+  padding: 0.8rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+}
+
+.Button {
+  padding: 0.8rem;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background-color: dodgerblue;
+  color: white;
+  border-radius: 5px;
+}
+
+.Button:hover {
+  background-color: rgb(19, 122, 224);
+}
