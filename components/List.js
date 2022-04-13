@@ -3,7 +3,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 import Card from './Card';
 import styles from '../styles/Home.module.css';
 
-const List = SortableContainer(({ countdowns }) => {
+const List = SortableContainer(({ countdowns, onCardClick }) => {
   return (
     <div className={styles.Home}>
       <div className={styles.HomeList}>

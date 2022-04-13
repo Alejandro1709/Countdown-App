@@ -1,0 +1,8 @@
+.Container {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background-color: lavender;
+  padding: 1.8rem;
+  cursor: pointer;
+}

@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import List from '../components/List';
 import Modal from '../components/Modal';
 import { slugifyText } from '../utils/slugify';
+import styles from '../styles/NewButton.module.css';
 
 export default function Home() {
   const [countdowns, setCountdowns] = useState([
@@ -46,7 +47,7 @@ export default function Home() {
     },
   ]);
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setCountdowns(arrayMove(countdowns, oldIndex, newIndex));
@@ -72,6 +73,9 @@ export default function Home() {
           />
         </Modal>
       )}
+      <div onClick={() => setIsModalOpen(true)} className={styles.Container}>
+        <span>Add new Countdown</span>
+      </div>
     </Layout>
   );
 }

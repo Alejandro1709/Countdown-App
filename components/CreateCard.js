@@ -19,6 +19,11 @@ function CreateCard({ onCancel, handleCreate }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    if (title === '' || !color || !startDate) {
+      alert('Please fill out the required fields!');
+      return;
+    }
+
     const newCountdown = {
       id: v4(),
       title: title,
@@ -43,6 +48,7 @@ function CreateCard({ onCancel, handleCreate }) {
               name='title'
               id='title'
               placeholder='Graduation'
+              required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
