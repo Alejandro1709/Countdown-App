@@ -61,7 +61,7 @@ export default function Home() {
       <List countdowns={countdowns} axis='y' onSortEnd={onSortEnd} />
       {isModalOpen && (
         <Modal>
-          <CreateCard />
+          <CreateCard onCancel={() => setIsModalOpen(false)} />
         </Modal>
       )}
     </Layout>

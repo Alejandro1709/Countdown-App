@@ -47,11 +47,11 @@
 }
 
 .SubmitButton {
-  background-color: #46e97d;
+  background-color: #39dc70;
 }
 
 .SubmitButton:hover {
-  background-color: #39dc70;
+  background-color: #2fc962;
 }
 
 .CancelButton {
