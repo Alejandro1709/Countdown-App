@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
+import { slugifyText } from '../utils/slugify';
+import { v4 } from 'uuid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from 'emoji-mart';
 import styles from '../styles/CreateCard.module.css';
-import { slugifyText } from '../utils/slugify';
 import chroma from 'chroma-js';
 
 function CreateCard({ onCancel, handleCreate }) {
@@ -21,7 +20,7 @@ function CreateCard({ onCancel, handleCreate }) {
     e.preventDefault();
 
     const newCountdown = {
-      id: 5,
+      id: v4(),
       title: title,
       slug: slugifyText(title),
       color: color.hex,
