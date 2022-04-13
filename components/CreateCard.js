@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
 import { slugifyText } from '../utils/slugify';
 import { v4 } from 'uuid';
+import { getDaysDifference } from '../utils/dates';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../styles/CreateCard.module.css';
@@ -31,7 +32,7 @@ function CreateCard({ onCancel, handleCreate }) {
       color: color.hex,
       altColor: chroma(color.hex).darken(0.5),
       emoji: '👮‍♀️',
-      daysLeft: 69,
+      daysLeft: getDaysDifference(startDate || new Date()),
     };
 
     handleCreate(newCountdown);

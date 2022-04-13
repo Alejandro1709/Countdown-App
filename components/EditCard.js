@@ -14,9 +14,10 @@ function EditCard({ onCancel, handleCreate }) {
 
   const countdown = JSON.parse(localStorage.getItem('currentCountdown'));
 
-  useEffect(() => {
-    console.log(countdown);
-  }, [countdown]);
+  // useEffect(() => {
+  //   const diff = getDaysDifference('2022/09/16');
+  //   console.log(diff);
+  // }, [countdown]);
 
   const onSwatchHover = (color) => {
     setColor(color);
@@ -63,7 +64,6 @@ function EditCard({ onCancel, handleCreate }) {
             <label htmlFor='date'>Date:</label>
             <DatePicker
               closeOnScroll={true}
-              selected={countdown.date || startDate}
               onChange={(date) => setStartDate(date)}
             />
           </div>

@@ -6,6 +6,7 @@ import List from '../components/List';
 import Modal from '../components/Modal';
 import { slugifyText } from '../utils/slugify';
 import styles from '../styles/NewButton.module.css';
+import { getDaysDifference } from '../utils/dates';
 
 export default function Home() {
   const [countdowns, setCountdowns] = useState([
@@ -16,7 +17,8 @@ export default function Home() {
       color: '#47ED6C',
       altColor: '#33D356',
       emoji: '🌴',
-      daysLeft: 66,
+      date: '09/16/22',
+      daysLeft: getDaysDifference('09/16/22'),
     },
     {
       id: 2,
@@ -25,7 +27,8 @@ export default function Home() {
       color: '#47C5ED',
       altColor: '#38B2D9',
       emoji: '🥳',
-      daysLeft: 67,
+      date: '09/17/22',
+      daysLeft: getDaysDifference('09/17/22'),
     },
     {
       id: 3,
@@ -34,7 +37,8 @@ export default function Home() {
       color: '#B070E3',
       altColor: '#9E52DB',
       emoji: '🎹',
-      daysLeft: 68,
+      date: '09/18/22',
+      daysLeft: getDaysDifference('09/18/22'),
     },
     {
       id: 4,
@@ -43,7 +47,8 @@ export default function Home() {
       color: '#E370B5',
       altColor: '#CC338F',
       emoji: '👮‍♀️',
-      daysLeft: 69,
+      date: '09/19/29',
+      daysLeft: getDaysDifference('09/19/22'),
     },
   ]);
 
