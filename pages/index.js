@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { arrayMove } from 'react-sortable-hoc';
+import CreateCard from '../components/CreateCard';
 import Layout from '../components/Layout';
 import List from '../components/List';
+import Modal from '../components/Modal';
 import { slugifyText } from '../utils/slugify';
 
 export default function Home() {
@@ -44,6 +46,8 @@ export default function Home() {
     },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setCountdowns(arrayMove(countdowns, oldIndex, newIndex));
   };
@@ -55,6 +59,11 @@ export default function Home() {
       keywords='countdown, countdowns, count, events'
     >
       <List countdowns={countdowns} axis='y' onSortEnd={onSortEnd} />
+      {isModalOpen && (
+        <Modal>
+          <CreateCard />
+        </Modal>
+      )}
     </Layout>
   );
 }
