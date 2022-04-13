@@ -7,6 +7,12 @@ import EditCard from './EditCard';
 
 const List = SortableContainer(({ countdowns, onCreate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const changeUrl = (countdown) => {
+    localStorage.setItem('currentCountdown', JSON.stringify(countdown));
+    setIsModalOpen(true);
+  };
+
   return (
     <div className={styles.Home}>
       <div className={styles.HomeList}>
@@ -15,7 +21,7 @@ const List = SortableContainer(({ countdowns, onCreate }) => {
             index={index}
             key={countdown.id}
             countdown={countdown}
-            onEdit={() => setIsModalOpen(true)}
+            onEdit={() => changeUrl(countdown)}
           />
         ))}
       </div>

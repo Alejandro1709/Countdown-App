@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CirclePicker } from 'react-color';
 import { slugifyText } from '../utils/slugify';
 import { v4 } from 'uuid';
@@ -11,6 +11,12 @@ function EditCard({ onCancel, handleCreate }) {
   const [title, setTitle] = useState('');
   const [color, setColor] = useState('');
   const [startDate, setStartDate] = useState(new Date());
+
+  const countdown = JSON.parse(localStorage.getItem('currentCountdown'));
+
+  useEffect(() => {
+    console.log(countdown);
+  }, [countdown]);
 
   const onSwatchHover = (color) => {
     setColor(color);
@@ -49,7 +55,7 @@ function EditCard({ onCancel, handleCreate }) {
               id='title'
               placeholder='Graduation'
               required
-              value={title}
+              value={countdown.title || title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
@@ -57,13 +63,16 @@ function EditCard({ onCancel, handleCreate }) {
             <label htmlFor='date'>Date:</label>
             <DatePicker
               closeOnScroll={true}
-              selected={startDate}
+              selected={countdown.date || startDate}
               onChange={(date) => setStartDate(date)}
             />
           </div>
           <div className={styles.ColorGroup}>
             <label htmlFor='title'>Color:</label>
-            <CirclePicker onSwatchHover={onSwatchHover} />
+            <CirclePicker
+              color={countdown.color}
+              onSwatchHover={onSwatchHover}
+            />
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='emoji'>Emoji:</label>

@@ -25,6 +25,7 @@ const Card = SortableElement(({ countdown, onEdit }) => {
         <button
           style={{ backgroundColor: countdown.altColor }}
           className={styles.EditButton}
+          onClick={onEdit}
         >
           Edit
         </button>
