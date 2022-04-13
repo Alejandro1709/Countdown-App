@@ -52,6 +52,11 @@ export default function Home() {
     setCountdowns(arrayMove(countdowns, oldIndex, newIndex));
   };
 
+  const onCreate = (cd) => {
+    setCountdowns([...countdowns, cd]);
+    setIsModalOpen(false);
+  };
+
   return (
     <Layout
       title='My Countdowns'
@@ -61,7 +66,10 @@ export default function Home() {
       <List countdowns={countdowns} axis='y' onSortEnd={onSortEnd} />
       {isModalOpen && (
         <Modal>
-          <CreateCard onCancel={() => setIsModalOpen(false)} />
+          <CreateCard
+            onCancel={() => setIsModalOpen(false)}
+            handleCreate={onCreate}
+          />
         </Modal>
       )}
     </Layout>

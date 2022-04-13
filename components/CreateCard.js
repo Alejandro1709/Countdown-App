@@ -5,8 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import styles from '../styles/CreateCard.module.css';
+import { slugifyText } from '../utils/slugify';
+import chroma from 'chroma-js';
 
-function CreateCard({ onCancel }) {
+function CreateCard({ onCancel, handleCreate }) {
   const [title, setTitle] = useState('');
   const [color, setColor] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -19,12 +21,16 @@ function CreateCard({ onCancel }) {
     e.preventDefault();
 
     const newCountdown = {
-      title,
-      date: startDate,
-      color,
+      id: 5,
+      title: title,
+      slug: slugifyText(title),
+      color: color.hex,
+      altColor: chroma(color.hex).darken(0.5),
+      emoji: '👮‍♀️',
+      daysLeft: 69,
     };
 
-    console.log(newCountdown);
+    handleCreate(newCountdown);
   };
 
   return (
