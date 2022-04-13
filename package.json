@@ -13,6 +13,7 @@
     "next": "12.1.4",
     "react": "18.0.0",
     "react-color": "^2.19.3",
+    "react-datepicker": "^4.7.0",
     "react-dom": "18.0.0",
     "react-sortable-hoc": "^2.0.0"
   },

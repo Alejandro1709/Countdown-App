@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../styles/CreateCard.module.css';
 
 function CreateCard() {
   const [color, setColor] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
 
-  const onChangeComplete = (color) => {
+  const onSwatchHover = (color) => {
     setColor(color);
   };
 
@@ -24,18 +27,24 @@ function CreateCard() {
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='date'>Date:</label>
-            <input type='date' name='date' id='date' />
+            <DatePicker
+              closeOnScroll={true}
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
           </div>
           <div className={styles.ColorGroup}>
             <label htmlFor='title'>Color:</label>
-            <CirclePicker onChangeComplete={onChangeComplete} />
+            <CirclePicker onSwatchHover={onSwatchHover} />
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='emoji'>Emoji:</label>
             <input type='text' name='emoji' id='emoji' />
           </div>
           <button
-            style={{ backgroundColor: color && color.hex }}
+            style={{
+              backgroundColor: color ? color.hex : '#46e97d',
+            }}
             className={styles.SubmitButton}
             type='submit'
           >
