@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CirclePicker } from 'react-color';
 import { slugifyText } from '../utils/slugify';
+import { useRouter } from 'next/router';
+import { supabase } from '../utils/supabaseClient';
 import { v4 } from 'uuid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,22 +10,35 @@ import styles from '../styles/CreateCard.module.css';
 import chroma from 'chroma-js';
 
 function EditCard({ onCancel, handleCreate }) {
-  const [title, setTitle] = useState('');
-  const [color, setColor] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-
   const countdown = JSON.parse(localStorage.getItem('currentCountdown'));
 
-  // useEffect(() => {
-  //   const diff = getDaysDifference('2022/09/16');
-  //   console.log(diff);
-  // }, [countdown]);
+  const [title, setTitle] = useState(countdown.title);
+  const [color, setColor] = useState(countdown.color);
+  const [emoji, setEmoji] = useState(countdown.emoji);
+  const [startDate, setStartDate] = useState(new Date(countdown.date));
+  const [selectedCountdown, setSelectedCountdown] = useState({});
+
+  useEffect(() => {
+    const getCountdown = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('countdowns')
+          .select('*')
+          .eq('slug', countdown.slug);
+
+        setSelectedCountdown(data[0]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getCountdown();
+  }, []);
 
   const onSwatchHover = (color) => {
     setColor(color);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (title === '' || !color || !startDate) {
@@ -31,17 +46,24 @@ function EditCard({ onCancel, handleCreate }) {
       return;
     }
 
-    const newCountdown = {
-      id: v4(),
-      title: title,
-      slug: slugifyText(title),
-      color: color.hex,
-      altColor: chroma(color.hex).darken(0.5),
-      emoji: '👮‍♀️',
-      daysLeft: 69,
+    const countdownToUpdate = {
+      title,
+      color,
+      altColor: chroma(countdown.color).darken(0.5).hex(),
+      emoji,
+      date: startDate,
     };
 
-    handleCreate(newCountdown);
+    try {
+      const { data, error } = await supabase
+        .from('countdowns')
+        .update(countdownToUpdate)
+        .match({ slug: countdown.slug });
+    } catch (error) {
+      console.log(error);
+    }
+    handleCreate(countdownToUpdate);
+    history.push('/');
   };
 
   return (
@@ -56,13 +78,15 @@ function EditCard({ onCancel, handleCreate }) {
               id='title'
               placeholder='Graduation'
               required
-              value={countdown.title || title}
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='date'>Date:</label>
             <DatePicker
+              dateFormat='yyyy/MM/dd'
+              selected={new Date(countdown.date)}
               closeOnScroll={true}
               onChange={(date) => setStartDate(date)}
             />
@@ -70,13 +94,19 @@ function EditCard({ onCancel, handleCreate }) {
           <div className={styles.ColorGroup}>
             <label htmlFor='title'>Color:</label>
             <CirclePicker
-              color={countdown.color}
-              onSwatchHover={onSwatchHover}
+              color={selectedCountdown.color}
+              onChangeComplete={onSwatchHover}
             />
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='emoji'>Emoji:</label>
-            <input type='text' name='emoji' id='emoji' />
+            <input
+              type='text'
+              name='emoji'
+              id='emoji'
+              value={emoji}
+              onChange={(e) => setEmoji(e.target.value)}
+            />
           </div>
           <button className={styles.SubmitButton} type='submit'>
             Edit Countdown

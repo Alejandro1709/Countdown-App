@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
 import { slugifyText } from '../utils/slugify';
-import { v4 } from 'uuid';
+import { supabase } from '../utils/supabaseClient';
 import { getDaysDifference } from '../utils/dates';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,13 +11,14 @@ import chroma from 'chroma-js';
 function CreateCard({ onCancel, handleCreate }) {
   const [title, setTitle] = useState('');
   const [color, setColor] = useState('');
+  const [emoji, setEmoji] = useState('');
   const [startDate, setStartDate] = useState(new Date());
 
   const onSwatchHover = (color) => {
     setColor(color);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (title === '' || !color || !startDate) {
@@ -25,15 +26,27 @@ function CreateCard({ onCancel, handleCreate }) {
       return;
     }
 
+    const user = supabase.auth.user();
+
     const newCountdown = {
-      id: v4(),
       title: title,
       slug: slugifyText(title),
       color: color.hex,
-      altColor: chroma(color.hex).darken(0.5),
-      emoji: '👮‍♀️',
-      daysLeft: getDaysDifference(startDate || new Date()),
+      altColor: chroma(color.hex).darken(0.5).hex(),
+      emoji: emoji,
+      user: user.id,
+      date: startDate,
+      daysLeft: getDaysDifference(startDate),
     };
+
+    console.log(newCountdown);
+    try {
+      const { data, error } = await supabase
+        .from('countdowns')
+        .insert([newCountdown]);
+    } catch (error) {
+      console.error(error);
+    }
 
     handleCreate(newCountdown);
   };
@@ -64,11 +77,17 @@ function CreateCard({ onCancel, handleCreate }) {
           </div>
           <div className={styles.ColorGroup}>
             <label htmlFor='title'>Color:</label>
-            <CirclePicker onSwatchHover={onSwatchHover} />
+            <CirclePicker onChangeComplete={onSwatchHover} />
           </div>
           <div className={styles.FormGroup}>
             <label htmlFor='emoji'>Emoji:</label>
-            <input type='text' name='emoji' id='emoji' />
+            <input
+              type='text'
+              name='emoji'
+              id='emoji'
+              value={emoji}
+              onChange={(e) => setEmoji(e.target.value)}
+            />
           </div>
           <button className={styles.SubmitButton} type='submit'>
             Create Countdown

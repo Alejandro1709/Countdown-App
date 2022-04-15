@@ -1,5 +1,6 @@
 import React from 'react';
 import { SortableElement } from 'react-sortable-hoc';
+import { getDaysDifference } from '../utils/dates';
 import styles from '../styles/Card.module.css';
 
 const Card = SortableElement(({ countdown, onEdit }) => {
@@ -19,7 +20,7 @@ const Card = SortableElement(({ countdown, onEdit }) => {
           </div>
           <div className={styles.CardInfo}>
             <h3>{countdown.title}</h3>
-            <p>{countdown.daysLeft} days to go</p>
+            <p>{getDaysDifference(countdown.date)} days to go</p>
           </div>
         </div>
         <button

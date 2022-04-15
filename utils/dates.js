@@ -11,4 +11,6 @@ const getDaysDifference = (date) => {
   return Math.floor(differenceInDays);
 };
 
+const convertDateFormat = (date) => {};
+
 export { getDaysDifference };
