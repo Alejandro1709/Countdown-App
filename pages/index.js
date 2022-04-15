@@ -48,7 +48,7 @@ export default function Home() {
       slug: slugifyText('Alcatraz SF'),
       color: '#E370B5',
       altColor: '#CC338F',
-      emoji: '👮‍♀️',
+      emoji: '🤪',
       date: '09/19/29',
       daysLeft: getDaysDifference('09/19/22'),
     },
