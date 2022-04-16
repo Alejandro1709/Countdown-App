@@ -16,7 +16,12 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const { data } = await supabase.from('countdowns').select();
+      const { data } = await supabase.from('countdowns').select(`
+        *
+        user (
+          id
+        )
+      `);
       setCountdowns(data);
     } catch (error) {
       console.log(error);
